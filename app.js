@@ -3,6 +3,37 @@
   // Visual resources (star SVG and badge generators)
   const starOn = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#fff8d6"/><stop offset="45%" stop-color="#ffd166"/><stop offset="100%" stop-color="#caa24b"/></radialGradient><linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><g><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g1)" stroke="#f4d06f" stroke-width="2"/><ellipse cx="50" cy="28" rx="24" ry="10" fill="url(#gloss)"/></g></svg>`)
   const starOff = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#9fb3ff"/><stop offset="100%" stop-color="#475a9e"/></radialGradient></defs><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g2)" stroke="#d0dbff" stroke-opacity=".7" stroke-width="2"/></svg>`)
+  const ssBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
+  const altBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
+  const techBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
+
+  // Replace paths below with your custom images if desired
+  const SS_IMAGES = {
+    WEAPON: ssBadge('WEAPON'),
+    ARMOR: ssBadge('ARMOR'),
+    NECKLACE: ssBadge('NECKLACE'),
+    BELT: ssBadge('BELT'),
+    BRACER: ssBadge('BRACER'),
+    BOOTS: ssBadge('BOOTS')
+  }
+  const ALT_IMAGES = {
+    WEAPON: altBadge('WEAPON'),
+    ARMOR: altBadge('ARMOR'),
+    NECKLACE: altBadge('NECKLACE'),
+    BELT: altBadge('BELT'),
+    BRACER: altBadge('BRACER'),
+    BOOTS: altBadge('BOOTS')
+  }
+  const TECH_IMAGES = {
+    'TB Drone': techBadge('TB Drone'),
+    'TB Soccer': techBadge('TB Soccer'),
+    'TB Drill': techBadge('TB Drill'),
+    Molotov: techBadge('Molotov')
+  }
+
+  const ssImg = (label)=> SS_IMAGES[label] || ''
+  const altImg = (label)=> ALT_IMAGES[label] || ''
+  const techImg = (label)=> TECH_IMAGES[label] || ''
   const ssImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
   const altImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
   const techImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
