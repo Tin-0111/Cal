@@ -3,8 +3,44 @@
   // Visual resources (star SVG and badge generators)
   const starOn = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#fff8d6"/><stop offset="45%" stop-color="#ffd166"/><stop offset="100%" stop-color="#caa24b"/></radialGradient><linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><g><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g1)" stroke="#f4d06f" stroke-width="2"/><ellipse cx="50" cy="28" rx="24" ry="10" fill="url(#gloss)"/></g></svg>`)
   const starOff = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#9fb3ff"/><stop offset="100%" stop-color="#475a9e"/></radialGradient></defs><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g2)" stroke="#d0dbff" stroke-opacity=".7" stroke-width="2"/></svg>`)
-  const ssImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
-  const altImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
+  const ssBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
+  const altBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
+  const techBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
+
+  // Replace paths below with your custom images if desired
+  const SS_IMAGES = {
+    WEAPON: ssBadge('WEAPON'),
+    ARMOR: ssBadge('ARMOR'),
+    NECKLACE: ssBadge('NECKLACE'),
+    BELT: ssBadge('BELT'),
+    BRACER: ssBadge('BRACER'),
+    BOOTS: ssBadge('BOOTS')
+  }
+  const ALT_IMAGES = {
+    WEAPON: altBadge('WEAPON'),
+    ARMOR: altBadge('ARMOR'),
+    NECKLACE: altBadge('NECKLACE'),
+    BELT: altBadge('BELT'),
+    BRACER: altBadge('BRACER'),
+    BOOTS: altBadge('BOOTS')
+  }
+  const TECH_IMAGES = {
+    'TB Drone': techBadge('TB Drone'),
+    'TB Soccer': techBadge('TB Soccer'),
+    'TB Drill': techBadge('TB Drill'),
+    Molotov: techBadge('Molotov')
+  }
+
+  const ssImg = (label)=> SS_IMAGES[label] || ''
+  const altImg = (label)=> ALT_IMAGES[label] || ''
+  const techImg = (label)=> TECH_IMAGES[label] || ''
+
+  // structuredClone fallback for browsers that do not support it
+  const clone = (obj) => {
+    if (typeof structuredClone === 'function') return structuredClone(obj)
+    try { return JSON.parse(JSON.stringify(obj)) }
+    catch { return obj }
+  }
 
   // Constants
   const LABELS=["WEAPON","ARMOR","NECKLACE","BELT","BRACER","BOOTS"];
@@ -17,7 +53,7 @@
   const COST={E:[1,2,3,5,8],V:[1,2,3,5,8],C:[1,2,3,3,4,4,6,6,8,8]};
   const defaultData = LABELS.map((label,i)=>({id:i,label,state:STATE.SS,E:0,V:0,C:0,ALT:0}));
   function normalizeData(raw){
-    const base = structuredClone(defaultData);
+    const base = clone(defaultData);
     if(!Array.isArray(raw) || raw.length!==LABELS.length) return base;
     return raw.map((d,i)=>({ id:i,label:LABELS[i], state:[STATE.SS,STATE.NONE,STATE.ALT].includes(d?.state)? d.state: STATE.SS, E:+(d?.E||0), V:+(d?.V||0), C:+(d?.C||0), ALT:+(d?.ALT||0) }));
   }
@@ -25,7 +61,7 @@
     try{
       const raw=localStorage.getItem('gearCalc_v9_2') || localStorage.getItem('gearCalc_v9_1') || localStorage.getItem('gearCalc_v9');
       return normalizeData(raw?JSON.parse(raw):null);
-    }catch{ return structuredClone(defaultData) }
+    }catch{ return clone(defaultData) }
   })();
 
   // DOM refs
@@ -36,7 +72,6 @@
   const $optRun=document.getElementById('optRun');
   const $optCancel=document.getElementById('optCancel');
   const $partsGrid=document.getElementById('partsGrid');
-  const $skillsGrid=document.getElementById('skillsGrid');
 
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
@@ -56,7 +91,6 @@
   const clamp=(v,min,max)=>Math.max(min,Math.min(max,v))
   const hasCrow=(label)=>!(label==='BRACER'||label==='BOOTS')
   const save=()=> localStorage.setItem('gearCalc_v9_2', JSON.stringify(data))
-  const saveTech=()=> localStorage.setItem('gearCalc_v9_2_tech', JSON.stringify(tech))
   function toast(msg){ if(!$toast) return; $toast.textContent=msg; $toast.classList.add('show'); clearTimeout(toast._t); $toast._t=setTimeout(()=> $toast.classList.remove('show'), 1200) }
 
   function setEVForSum(d, target){
@@ -131,7 +165,7 @@
     if(!$grid||!$score||!$core) return
     $grid.innerHTML=''
     for(let i=0;i<LABELS.length;i++){
-      const d = data[i] || (data[i]=structuredClone(defaultData[i]))
+      const d = data[i] || (data[i]=clone(defaultData[i]))
       $grid.appendChild(renderCard(d))
     }
 
@@ -424,35 +458,21 @@
     svg.innerHTML = axis + `<polyline points="${pts}" fill="none" stroke="#88d8ff" stroke-width="2"/>`
   }
 
-  // Tech parts & skills
+  // Tech parts
   const TECH_PARTS=[
     {name:'TB Drone', cost:2750},
     {name:'TB Soccer', cost:900},
     {name:'TB Drill', cost:3000},
     {name:'Molotov', cost:600}
   ]
-  const TECH_SKILLS=['TB Drone EVO','TB Soccer EVO','TB Drill EVO','Molotov EVO']
-  let tech = (function(){
-    try{ return JSON.parse(localStorage.getItem('gearCalc_v9_2_tech')) || {skills:[false,false,false,false]} }catch{return {skills:[false,false,false,false]}}
-  })()
   function renderTech(){
     if($partsGrid){
       $partsGrid.innerHTML=''
       TECH_PARTS.forEach(p=>{
         const wrap=document.createElement('div'); wrap.style.textAlign='center'
-        const badge=document.createElement('div'); badge.className='hex'; badge.innerHTML=`<div style="font-weight:900;color:#1b0931">${p.name.replace(' ','<br>')}</div>`
+        const badge=document.createElement('div'); badge.className='badge'; badge.innerHTML=`<img alt="TECH" src="${techImg(p.name)}">`
         const cost=document.createElement('div'); cost.className='cost'; cost.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="#57e087" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v12l-8 4-8-4V6l8-4z"/></svg> ${p.cost}`
         wrap.appendChild(badge); wrap.appendChild(cost); $partsGrid.appendChild(wrap)
-      })
-    }
-    if($skillsGrid){
-      $skillsGrid.innerHTML=''
-      TECH_SKILLS.forEach((name,i)=>{
-        const wrap=document.createElement('div'); wrap.style.display='grid'; wrap.style.placeItems='center'
-        const badge=document.createElement('div'); badge.className='oct wrap'; badge.innerHTML=`<div>${name.replace(' EVO','<br>EVO')}</div>`
-        if(tech.skills[i]){ const chk=document.createElement('div'); chk.className='check'; chk.innerHTML='✓'; badge.appendChild(chk) }
-        badge.onclick=()=>{ tech.skills[i]=!tech.skills[i]; saveTech(); renderTech() }
-        wrap.appendChild(badge); $skillsGrid.appendChild(wrap)
       })
     }
   }
