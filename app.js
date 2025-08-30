@@ -34,6 +34,13 @@
   const ssImg = (label)=> SS_IMAGES[label] || ''
   const altImg = (label)=> ALT_IMAGES[label] || ''
   const techImg = (label)=> TECH_IMAGES[label] || ''
+
+  // structuredClone fallback for browsers that do not support it
+  const clone = (obj) => {
+    if (typeof structuredClone === 'function') return structuredClone(obj)
+    try { return JSON.parse(JSON.stringify(obj)) }
+    catch { return obj }
+  }
   const ssImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
   const altImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
   const techImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
@@ -49,7 +56,7 @@
   const COST={E:[1,2,3,5,8],V:[1,2,3,5,8],C:[1,2,3,3,4,4,6,6,8,8]};
   const defaultData = LABELS.map((label,i)=>({id:i,label,state:STATE.SS,E:0,V:0,C:0,ALT:0}));
   function normalizeData(raw){
-    const base = structuredClone(defaultData);
+    const base = clone(defaultData);
     if(!Array.isArray(raw) || raw.length!==LABELS.length) return base;
     return raw.map((d,i)=>({ id:i,label:LABELS[i], state:[STATE.SS,STATE.NONE,STATE.ALT].includes(d?.state)? d.state: STATE.SS, E:+(d?.E||0), V:+(d?.V||0), C:+(d?.C||0), ALT:+(d?.ALT||0) }));
   }
@@ -57,7 +64,7 @@
     try{
       const raw=localStorage.getItem('gearCalc_v9_2') || localStorage.getItem('gearCalc_v9_1') || localStorage.getItem('gearCalc_v9');
       return normalizeData(raw?JSON.parse(raw):null);
-    }catch{ return structuredClone(defaultData) }
+    }catch{ return clone(defaultData) }
   })();
 
   // DOM refs
@@ -161,7 +168,7 @@
     if(!$grid||!$score||!$core) return
     $grid.innerHTML=''
     for(let i=0;i<LABELS.length;i++){
-      const d = data[i] || (data[i]=structuredClone(defaultData[i]))
+      const d = data[i] || (data[i]=clone(defaultData[i]))
       $grid.appendChild(renderCard(d))
     }
 
