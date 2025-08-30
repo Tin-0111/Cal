@@ -9,7 +9,7 @@
 
   // Replace the path strings below with your own images (leave empty for default badge)
   const SS_IMAGES = {
-    WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+    WEAPON: 'Image/gear_ss_weapon.png', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
   }
   const ALT_IMAGES = {
     WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
