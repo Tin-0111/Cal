@@ -7,6 +7,20 @@
   const altBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
   const techBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
 
+  // Replace the path strings below with your own images (leave empty for default badge)
+  const SS_IMAGES = {
+    WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+  }
+  const ALT_IMAGES = {
+    WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+  }
+  const TECH_IMAGES = {
+    'TB Drone': '', 'TB Soccer': '', 'TB Drill': '', Molotov: ''
+  }
+
+  const ssImg = (label)=> SS_IMAGES[label] || ssBadge(label)
+  const altImg = (label)=> ALT_IMAGES[label] || altBadge(label)
+  const techImg = (label)=> TECH_IMAGES[label] || techBadge(label)
   // Replace paths below with your custom images if desired
   const SS_IMAGES = {
     WEAPON: ssBadge('WEAPON'),
@@ -34,16 +48,18 @@
   const ssImg = (label)=> SS_IMAGES[label] || ''
   const altImg = (label)=> ALT_IMAGES[label] || ''
   const techImg = (label)=> TECH_IMAGES[label] || ''
-
+  
   // structuredClone fallback for browsers that do not support it
   const clone = (obj) => {
     if (typeof structuredClone === 'function') return structuredClone(obj)
     try { return JSON.parse(JSON.stringify(obj)) }
     catch { return obj }
   }
+  
   const ssImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
   const altImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
   const techImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
+
 
   // Constants
   const LABELS=["WEAPON","ARMOR","NECKLACE","BELT","BRACER","BOOTS"];
