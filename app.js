@@ -4,25 +4,24 @@
   const starOn = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#fff8d6"/><stop offset="45%" stop-color="#ffd166"/><stop offset="100%" stop-color="#caa24b"/></radialGradient><linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><g><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g1)" stroke="#f4d06f" stroke-width="2"/><ellipse cx="50" cy="28" rx="24" ry="10" fill="url(#gloss)"/></g></svg>`)
   const starOff = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#9fb3ff"/><stop offset="100%" stop-color="#475a9e"/></radialGradient></defs><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g2)" stroke="#d0dbff" stroke-opacity=".7" stroke-width="2"/></svg>`)
   // Image paths for each gear state. Replace with actual files.
-  const PLACEHOLDER_IMG='Image/gear_ss_weapon.png';
   const SS_IMAGES={
-    WEAPON:PLACEHOLDER_IMG,
-    ARMOR:Image/gear_ss_cloth.png,
-    NECKLACE:PLACEHOLDER_IMG,
-    BELT:PLACEHOLDER_IMG,
-    BRACER:PLACEHOLDER_IMG,
-    BOOTS:PLACEHOLDER_IMG
+    WEAPON:'Image/gear_ss_weapon.png',
+    ARMOR:'Image/gear_ss_cloth.png',
+    NECKLACE:'Image/gear_ss_necklace.png',
+    BELT:'Image/gear_ss_belt.png',
+    BRACER:'Image/ss_bracer.png',
+    BOOTS:'Image/ss_boots.png'
   }
   const ALT_IMAGES={
-    WEAPON:PLACEHOLDER_IMG,
-    ARMOR:PLACEHOLDER_IMG,
-    NECKLACE:PLACEHOLDER_IMG,
-    BELT:PLACEHOLDER_IMG,
-    BRACER:PLACEHOLDER_IMG,
-    BOOTS:PLACEHOLDER_IMG
+    WEAPON:'Image/alt_weapon.png',
+    ARMOR:'Image/alt_armor.png',
+    NECKLACE:'Image/alt_necklace.png',
+    BELT:'Image/alt_belt.png',
+    BRACER:'Image/alt_bracer.png',
+    BOOTS:'Image/alt_boots.png'
   }
-  const ssImg = (label)=> SS_IMAGES[label] || PLACEHOLDER_IMG
-  const altImg = (label)=> ALT_IMAGES[label] || PLACEHOLDER_IMG
+  const ssImg = (label)=> SS_IMAGES[label] || ''
+  const altImg = (label)=> ALT_IMAGES[label] || ''
 
   // Constants
   const LABELS=["WEAPON","ARMOR","NECKLACE","BELT","BRACER","BOOTS"];
@@ -56,52 +55,18 @@
   const $partsGrid=document.getElementById('partsGrid');
   const $gearBox=document.querySelector('.gear-box');
   const $techBox=document.getElementById('techBox');
-  const $modeBox=document.getElementById('modeBox');
-  const $modeInputs=document.querySelectorAll('input[name="mode"]');
-  const $expeditionWrap=document.getElementById('expeditionInput');
-  const $opponentMedals=document.getElementById('opponentMedals');
-  const $medalHint=document.getElementById('medalHint');
   const $navItems=document.querySelectorAll('.nav-item');
 
-  function activateTab(btn){
-    $navItems.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const tab=btn.dataset.tab;
-    const showGear=tab==='all'||tab==='gear';
-    const showParts=tab==='all'||tab==='parts';
-    const showMode=tab==='all'||tab==='mode';
-    if($gearBox) $gearBox.style.display=showGear?'':'none';
-    if($logBox) $logBox.style.display=showGear?'':'none';
-    if($techBox) $techBox.style.display=showParts?'':'none';
-    if($modeBox) $modeBox.style.display=showMode?'':'none';
-    render();
-  }
-
   $navItems.forEach(btn=>{
-    btn.addEventListener('click',()=>activateTab(btn));
-    btn.addEventListener('touchstart',e=>{ e.preventDefault(); activateTab(btn); });
-  });
-
-  function updateModeField(){
-    const isExpedition = document.querySelector('input[name="mode"][value="expedition"]').checked;
-    if($expeditionWrap) $expeditionWrap.style.display = isExpedition ? '' : 'none';
-    if($medalHint) $medalHint.style.display = isExpedition ? '' : 'none';
-    if(isExpedition){
-      if($opponentMedals) $opponentMedals.focus();
-      toast('메달 수를 입력하세요');
-    }
-  }
-
-  $modeInputs.forEach(r=>{ r.addEventListener('change', updateModeField); });
-  updateModeField();
-
-  $modeInputs.forEach(r=>{
-    r.addEventListener('change',()=>{
-      if(r.value==='expedition' && r.checked){
-        if($expeditionWrap) $expeditionWrap.style.display='';
-      }else if(r.checked){
-        if($expeditionWrap) $expeditionWrap.style.display='none';
-      }
+    btn.addEventListener('click',()=>{
+      $navItems.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab=btn.dataset.tab;
+      const showGear=tab==='all'||tab==='gear';
+      const showParts=tab==='all'||tab==='parts';
+      if($gearBox) $gearBox.style.display=showGear?'':'none';
+      if($logBox) $logBox.style.display=showGear?'':'none';
+      if($techBox) $techBox.style.display=showParts?'':'none';
     });
   });
 
@@ -495,13 +460,12 @@
   }
 
   // Tech parts (images and cost)
-  const defaultTechImg=PLACEHOLDER_IMG;
   const TECH_PARTS=[
-    {name:'TB Drone', cost:3000, img:defaultTechImg},
-    {name:'TB Soccer', cost:3000, img:defaultTechImg},
-    {name:'TB Drill', cost:3000, img:defaultTechImg},
-    {name:'Molotov', cost:3000, img:defaultTechImg}
-  ];
+    {name:'TB Drone', cost:2750, img:'Image/tech_drone.png'},
+    {name:'TB Soccer', cost:900, img:'Image/tech_soccer.png'},
+    {name:'TB Drill', cost:3000, img:'Image/tech_drill.png'},
+    {name:'Molotov', cost:600, img:'Image/tech_molotov.png'}
+  ]
   function renderTech(){
     if($partsGrid){
       $partsGrid.innerHTML=''
@@ -526,7 +490,5 @@
   }
 
   // Init
-  selfTest();
-  const initNav=document.querySelector('.nav-item.active') || $navItems[0];
-  if(initNav) activateTab(initNav); else render();
+  selfTest(); render(); renderTech();
 })();
