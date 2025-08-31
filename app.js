@@ -9,13 +9,9 @@
 
   // Replace these paths with your own image files.
   // Leaving an entry empty will use the generated badge.
-  const SS_IMAGES = {
-    WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
-
   // Replace the path strings below with your own images (leave empty for default badge)
   const SS_IMAGES = {
     WEAPON: 'Image/gear_ss_weapon.png', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
-
   }
   const ALT_IMAGES = {
     WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
@@ -23,6 +19,10 @@
   const TECH_IMAGES = {
     'TB Drone': '', 'TB Soccer': '', 'TB Drill': '', Molotov: ''
   }
+
+  const ssImg = (label)=> SS_IMAGES[label] || ssBadge(label)
+  const altImg = (label)=> ALT_IMAGES[label] || altBadge(label)
+  const techImg = (label)=> TECH_IMAGES[label] || techBadge(label)
 
   const ssImg = (label)=> SS_IMAGES[label] || ''
   const altImg = (label)=> ALT_IMAGES[label] || ''
@@ -238,6 +238,9 @@
     const head=document.createElement('div'); head.className='card-head'
     const badge=document.createElement('div'); badge.className='badge'+(d.state===STATE.NONE?' none':'')
     if(d.state===STATE.SS){
+      badge.innerHTML = `<img src="${ssImg(d.label)}" alt="SS">`
+    }else if(d.state===STATE.ALT){
+      badge.innerHTML = `<img src="${altImg(d.label)}" alt="ALT">`
       badge.appendChild(imgWithFallback(ssImg(d.label), ssBadge(d.label), 'SS'))
     }else if(d.state===STATE.ALT){
       badge.appendChild(imgWithFallback(altImg(d.label), altBadge(d.label), 'ALT'))
@@ -512,6 +515,7 @@
       TECH_PARTS.forEach(p=>{
         const wrap=document.createElement('div'); wrap.style.textAlign='center'
         const badge=document.createElement('div'); badge.className='badge'
+        badge.innerHTML = `<img src="${techImg(p.name)}" alt="TECH">`
         badge.appendChild(imgWithFallback(techImg(p.name), techBadge(p.name), 'TECH'))
         const badge=document.createElement('div'); badge.className='badge'; badge.innerHTML=`<img alt="TECH" src="${techImg(p.name)}">`
         const cost=document.createElement('div'); cost.className='cost'; cost.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="#57e087" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v12l-8 4-8-4V6l8-4z"/></svg> ${p.cost}`
