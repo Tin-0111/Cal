@@ -7,3 +7,4 @@
 - **effects.js**: 부위별 별 등급에 따른 스탯 증가량과 C(크로우) 보너스 규칙.
 
 원하는 이미지를 사용하려면 `app.js` 상단의 `SS_IMAGES`, `ALT_IMAGES`, `TECH_IMAGES` 매핑에서 각 부위별 이미지 경로를 수정하세요. 비워 두면 기본 배지가 표시됩니다.
+원하는 이미지를 사용하려면 `app.js` 상단의 `SS_IMAGES`, `ALT_IMAGES`, `TECH_IMAGES` 매핑에서 각 부위별 이미지 경로를 수정하세요.

@@ -11,6 +11,11 @@
   // Leaving an entry empty will use the generated badge.
   const SS_IMAGES = {
     WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+
+  // Replace the path strings below with your own images (leave empty for default badge)
+  const SS_IMAGES = {
+    WEAPON: 'Image/gear_ss_weapon.png', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+
   }
   const ALT_IMAGES = {
     WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
@@ -31,13 +36,47 @@
     return img
   }
 
+  const ssImg = (label)=> SS_IMAGES[label] || ssBadge(label)
+  const altImg = (label)=> ALT_IMAGES[label] || altBadge(label)
+  const techImg = (label)=> TECH_IMAGES[label] || techBadge(label)
+  // Replace paths below with your custom images if desired
+  const SS_IMAGES = {
+    WEAPON: ssBadge('WEAPON'),
+    ARMOR: ssBadge('ARMOR'),
+    NECKLACE: ssBadge('NECKLACE'),
+    BELT: ssBadge('BELT'),
+    BRACER: ssBadge('BRACER'),
+    BOOTS: ssBadge('BOOTS')
+  }
+  const ALT_IMAGES = {
+    WEAPON: altBadge('WEAPON'),
+    ARMOR: altBadge('ARMOR'),
+    NECKLACE: altBadge('NECKLACE'),
+    BELT: altBadge('BELT'),
+    BRACER: altBadge('BRACER'),
+    BOOTS: altBadge('BOOTS')
+  }
+  const TECH_IMAGES = {
+    'TB Drone': techBadge('TB Drone'),
+    'TB Soccer': techBadge('TB Soccer'),
+    'TB Drill': techBadge('TB Drill'),
+    Molotov: techBadge('Molotov')
+  }
+
+  const ssImg = (label)=> SS_IMAGES[label] || ''
+  const altImg = (label)=> ALT_IMAGES[label] || ''
+  const techImg = (label)=> TECH_IMAGES[label] || ''
+  
   // structuredClone fallback for browsers that do not support it
   const clone = (obj) => {
     if (typeof structuredClone === 'function') return structuredClone(obj)
     try { return JSON.parse(JSON.stringify(obj)) }
     catch { return obj }
   }
-
+  
+  const ssImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
+  const altImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
+  const techImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
   // Constants
   const LABELS=["WEAPON","ARMOR","NECKLACE","BELT","BRACER","BOOTS"];
   const STATE={SS:"SS",NONE:"NONE",ALT:"ALT"};
@@ -474,6 +513,7 @@
         const wrap=document.createElement('div'); wrap.style.textAlign='center'
         const badge=document.createElement('div'); badge.className='badge'
         badge.appendChild(imgWithFallback(techImg(p.name), techBadge(p.name), 'TECH'))
+        const badge=document.createElement('div'); badge.className='badge'; badge.innerHTML=`<img alt="TECH" src="${techImg(p.name)}">`
         const cost=document.createElement('div'); cost.className='cost'; cost.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="#57e087" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v12l-8 4-8-4V6l8-4z"/></svg> ${p.cost}`
         wrap.appendChild(badge); wrap.appendChild(cost); $partsGrid.appendChild(wrap)
       })
