@@ -55,7 +55,19 @@
   const $partsGrid=document.getElementById('partsGrid');
   const $gearBox=document.querySelector('.gear-box');
   const $techBox=document.getElementById('techBox');
+  const $modeBox=document.getElementById('modeBox');
+  const $collectionBox=document.getElementById('collectionBox');
   const $navItems=document.querySelectorAll('.nav-item');
+  const $modeRadios=document.querySelectorAll('input[name="mode"]');
+  const $medalField=document.getElementById('medalField');
+  const $medalInput=document.getElementById('medalInput');
+  const $set1=document.getElementById('set1');
+  const $set2=document.getElementById('set2');
+  const $set3=document.getElementById('set3');
+  const $set1Value=document.getElementById('set1Value');
+  const $set2Value=document.getElementById('set2Value');
+  const $set3Value=document.getElementById('set3Value');
+  const $collectionGrid=document.querySelector('.collection-grid');
 
   $navItems.forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -64,14 +76,55 @@
       const tab=btn.dataset.tab;
       const showGear=tab==='all'||tab==='gear';
       const showParts=tab==='all'||tab==='parts';
+      const showMode=tab==='all'||tab==='mode';
+      const showCollection=tab==='all'||tab==='collection';
       if($gearBox) $gearBox.style.display=showGear?'':'none';
       if($logBox) $logBox.style.display=showGear?'':'none';
       if($techBox) $techBox.style.display=showParts?'':'none';
+      if($modeBox) $modeBox.style.display=showMode?'':'none';
+      if($collectionBox) $collectionBox.style.display=showCollection?'':'none';
     });
   });
 
   const $activeNav=document.querySelector('.nav-item.active');
   if($activeNav) $activeNav.click();
+  function updateModeField(){
+    const sel=document.querySelector('input[name="mode"]:checked');
+    if($medalField) $medalField.style.display=(sel&&sel.value==='expedition')?'':'none';
+  }
+  $modeRadios.forEach(r=>{ r.addEventListener('change', updateModeField); });
+  updateModeField();
+  if($medalInput){
+    $medalInput.addEventListener('input',()=>{
+      let v=parseInt($medalInput.value,10);
+      if(!Number.isFinite(v)) v=0;
+      v=Math.max(0,Math.min(45000,v));
+      $medalInput.value=v;
+    });
+  }
+
+  [$set1,$set2,$set3].forEach((slider,idx)=>{
+    if(!slider) return;
+    const spans=[$set1Value,$set2Value,$set3Value];
+    const span=spans[idx];
+    const sync=()=>{ if(span) span.textContent=slider.value; };
+    slider.addEventListener('input',sync);
+    sync();
+  });
+
+  if($collectionGrid){
+    const redImages = Array.from({length:28},(_,i)=>`Image/red${i+1}.png`);
+    const yellowImages = Array.from({length:32},(_,i)=>`Image/yellow${i+1}.png`);
+    const makeItem=(cls,src)=>{
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className=`collection-item ${cls}`;
+      btn.style.backgroundImage=`url(${src})`;
+      $collectionGrid.appendChild(btn);
+    };
+    redImages.forEach(src=>makeItem('red',src));
+    yellowImages.forEach(src=>makeItem('yellow',src));
+  }
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
   if($modal){ const $bd=$modal.querySelector('.backdrop'); if($bd){ $bd.onclick=()=> closeModal() } }
