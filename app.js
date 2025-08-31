@@ -7,7 +7,7 @@
   const PLACEHOLDER_IMG='Image/gear_ss_weapon.png';
   const SS_IMAGES={
     WEAPON:PLACEHOLDER_IMG,
-    ARMOR:PLACEHOLDER_IMG,
+    ARMOR:Image/gear_ss_cloth.png,
     NECKLACE:PLACEHOLDER_IMG,
     BELT:PLACEHOLDER_IMG,
     BRACER:PLACEHOLDER_IMG,
@@ -95,6 +95,18 @@
   $modeInputs.forEach(r=>{ r.addEventListener('change', updateModeField); });
   updateModeField();
 
+  $modeInputs.forEach(r=>{
+    r.addEventListener('change',()=>{
+      if(r.value==='expedition' && r.checked){
+        if($expeditionWrap) $expeditionWrap.style.display='';
+      }else if(r.checked){
+        if($expeditionWrap) $expeditionWrap.style.display='none';
+      }
+    });
+  });
+
+  const $activeNav=document.querySelector('.nav-item.active');
+  if($activeNav) $activeNav.click();
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
   if($modal){ const $bd=$modal.querySelector('.backdrop'); if($bd){ $bd.onclick=()=> closeModal() } }
@@ -485,10 +497,10 @@
   // Tech parts (images and cost)
   const defaultTechImg=PLACEHOLDER_IMG;
   const TECH_PARTS=[
-    {name:'TB Drone', cost:2750, img:defaultTechImg},
-    {name:'TB Soccer', cost:900, img:defaultTechImg},
+    {name:'TB Drone', cost:3000, img:defaultTechImg},
+    {name:'TB Soccer', cost:3000, img:defaultTechImg},
     {name:'TB Drill', cost:3000, img:defaultTechImg},
-    {name:'Molotov', cost:600, img:defaultTechImg}
+    {name:'Molotov', cost:3000, img:defaultTechImg}
   ];
   function renderTech(){
     if($partsGrid){
