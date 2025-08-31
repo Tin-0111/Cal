@@ -53,7 +53,25 @@
   const $optRun=document.getElementById('optRun');
   const $optCancel=document.getElementById('optCancel');
   const $partsGrid=document.getElementById('partsGrid');
-  
+  const $gearBox=document.querySelector('.gear-box');
+  const $techBox=document.getElementById('techBox');
+  const $navItems=document.querySelectorAll('.nav-item');
+
+  $navItems.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      $navItems.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab=btn.dataset.tab;
+      const showGear=tab==='all'||tab==='gear';
+      const showParts=tab==='all'||tab==='parts';
+      if($gearBox) $gearBox.style.display=showGear?'':'none';
+      if($logBox) $logBox.style.display=showGear?'':'none';
+      if($techBox) $techBox.style.display=showParts?'':'none';
+    });
+  });
+
+  const $activeNav=document.querySelector('.nav-item.active');
+  if($activeNav) $activeNav.click();
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
   if($modal){ const $bd=$modal.querySelector('.backdrop'); if($bd){ $bd.onclick=()=> closeModal() } }
