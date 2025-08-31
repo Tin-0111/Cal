@@ -5,7 +5,8 @@
   const starOff = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#9fb3ff"/><stop offset="100%" stop-color="#475a9e"/></radialGradient></defs><path d="M50 6l13.6 27.4 30.2 4.4-21.9 21.3 5.2 30.1L50 75.8 22.9 89.2l5.2-30.1L6.3 37.8l30.2-4.4z" fill="url(#g2)" stroke="#d0dbff" stroke-opacity=".7" stroke-width="2"/></svg>`)
   // Image paths for each gear state. Replace with actual files.
   const SS_IMAGES={
-    WEAPON:'Image/ss_weapon.png',
+    WEAPON:'Image/gear_ss_weapon.png',
+    WEAPON:'Image/gear_ss_weapon.png',
     ARMOR:'Image/ss_armor.png',
     NECKLACE:'Image/ss_necklace.png',
     BELT:'Image/ss_belt.png',
