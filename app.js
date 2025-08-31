@@ -55,6 +55,9 @@
   const $partsGrid=document.getElementById('partsGrid');
   const $gearBox=document.querySelector('.gear-box');
   const $techBox=document.getElementById('techBox');
+  const $modeBox=document.getElementById('modeBox');
+  const $modeInputs=document.querySelectorAll('input[name="mode"]');
+  const $expeditionWrap=document.getElementById('expeditionInput');
   const $navItems=document.querySelectorAll('.nav-item');
 
   $navItems.forEach(btn=>{
@@ -64,9 +67,24 @@
       const tab=btn.dataset.tab;
       const showGear=tab==='all'||tab==='gear';
       const showParts=tab==='all'||tab==='parts';
+      const showMode=tab==='all'||tab==='mode';
       if($gearBox) $gearBox.style.display=showGear?'':'none';
       if($logBox) $logBox.style.display=showGear?'':'none';
       if($techBox) $techBox.style.display=showParts?'':'none';
+      if($modeBox) $modeBox.style.display=showMode?'':'none';
+    });
+  });
+
+  const $activeNav=document.querySelector('.nav-item.active');
+  if($activeNav) $activeNav.click();
+
+  $modeInputs.forEach(r=>{
+    r.addEventListener('change',()=>{
+      if(r.value==='expedition' && r.checked){
+        if($expeditionWrap) $expeditionWrap.style.display='';
+      }else if(r.checked){
+        if($expeditionWrap) $expeditionWrap.style.display='none';
+      }
     });
   });
 

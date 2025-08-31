@@ -22,6 +22,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,s
 .spec{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:14px}
 .spec strong{color:var(--accent)}
 
+/* 모드 선택 */
+.mode-box{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:24px}
+.mode-options{display:flex;gap:16px;align-items:center;margin-bottom:8px}
+.mode-options label{display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--muted);font-weight:800}
+.mode-box .mode-field{display:flex;align-items:center;gap:8px}
+.mode-box input[type=number]{width:160px;padding:6px 8px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--text)}
+
 /* 장비 상자 */
 .gear-box{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--border);border-radius:16px;padding:12px 16px;margin-bottom:24px}
 .gear-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:800;color:var(--muted)}

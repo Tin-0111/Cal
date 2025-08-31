@@ -9,9 +9,10 @@
 <body>
   <div class="container layout">
     <nav class="side-nav">
-      <button class="nav-item active" data-tab="all">전부보기</button>
-      <button class="nav-item" data-tab="gear">장비</button>
-      <button class="nav-item" data-tab="parts">부품</button>
+      <button type="button" class="nav-item active" data-tab="all">전부보기</button>
+      <button type="button" class="nav-item" data-tab="mode">모드</button>
+      <button type="button" class="nav-item" data-tab="gear">장비</button>
+      <button type="button" class="nav-item" data-tab="parts">부품</button>
     </nav>
     <div class="content">
       <!-- 결과 -->
@@ -20,6 +21,18 @@
         <div class="spec-grid" id="specGrid"></div>
       </div>
 
+      <!-- 모드 -->
+      <div class="mode-box" id="modeBox">
+        <div class="mode-options">
+          <label><input type="radio" name="mode" value="battle" checked /> 일반</label>
+          <label><input type="radio" name="mode" value="expedition" /> 달광산원정</label>
+        </div>
+        <div class="mode-field" id="expeditionInput" style="display:none">
+          <label for="opponentMedals">상대 메달 수</label>
+          <input id="opponentMedals" type="number" min="0" max="45000" />
+        </div>
+        <div id="grid" class="grid"></div>
+      </div>
       <!-- 장비 -->
       <div class="gear-box">
         <div class="gear-head">
@@ -41,7 +54,6 @@
           <div class="chart-wrap"><svg id="lineChart" viewBox="0 0 800 160" preserveAspectRatio="none"></svg></div>
         </div>
       </div>
-
       <!-- Tech parts and Skills (separate) -->
       <div class="tech-box" id="techBox">
         <div class="ribbon">Tech parts</div>
