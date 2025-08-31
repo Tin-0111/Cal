@@ -116,10 +116,11 @@
     const redImages = Array.from({length:28},(_,i)=>`Image/red${i+1}.png`);
     const yellowImages = Array.from({length:32},(_,i)=>`Image/yellow${i+1}.png`);
     const makeItem=(cls,src)=>{
-      const div=document.createElement('div');
-      div.className=`collection-item ${cls}`;
-      div.style.backgroundImage=`url(${src})`;
-      $collectionGrid.appendChild(div);
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className=`collection-item ${cls}`;
+      btn.style.backgroundImage=`url(${src})`;
+      $collectionGrid.appendChild(btn);
     };
     redImages.forEach(src=>makeItem('red',src));
     yellowImages.forEach(src=>makeItem('yellow',src));
