@@ -7,15 +7,33 @@
   const altBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
   const techBadge = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
 
+  // Replace these paths with your own image files.
+  // Leaving an entry empty will use the generated badge.
+  const SS_IMAGES = {
+    WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+
   // Replace the path strings below with your own images (leave empty for default badge)
   const SS_IMAGES = {
     WEAPON: 'Image/gear_ss_weapon.png', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
+
   }
   const ALT_IMAGES = {
     WEAPON: '', ARMOR: '', NECKLACE: '', BELT: '', BRACER: '', BOOTS: ''
   }
   const TECH_IMAGES = {
     'TB Drone': '', 'TB Soccer': '', 'TB Drill': '', Molotov: ''
+  }
+
+  const ssImg = (label)=> SS_IMAGES[label] || ''
+  const altImg = (label)=> ALT_IMAGES[label] || ''
+  const techImg = (label)=> TECH_IMAGES[label] || ''
+
+  function imgWithFallback(src, fallback, alt){
+    const img=document.createElement('img')
+    img.alt=alt
+    img.src = src || fallback
+    if(src){ img.onerror=()=>{ img.onerror=null; img.src=fallback } }
+    return img
   }
 
   const ssImg = (label)=> SS_IMAGES[label] || ssBadge(label)
@@ -59,8 +77,6 @@
   const ssImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ee6ff"/><stop offset="1" stop-color="#c6a7ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">SS ${label}</text></svg>`)
   const altImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ffe5"/><stop offset="1" stop-color="#88a6ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg2)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">ALT ${label}</text></svg>`)
   const techImg = (label)=> 'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e8ff"/><stop offset="1" stop-color="#e9d9ff"/></linearGradient></defs><rect width="100" height="100" rx="18" fill="url(#bg3)"/><text x="50" y="56" text-anchor="middle" font-size="18" font-weight="900" fill="#222">${label}</text></svg>`)
-
-
   // Constants
   const LABELS=["WEAPON","ARMOR","NECKLACE","BELT","BRACER","BOOTS"];
   const STATE={SS:"SS",NONE:"NONE",ALT:"ALT"};
@@ -221,7 +237,13 @@
     const wrap=document.createElement('div'); wrap.className='card'+(d.state===STATE.NONE?' none':'')
     const head=document.createElement('div'); head.className='card-head'
     const badge=document.createElement('div'); badge.className='badge'+(d.state===STATE.NONE?' none':'')
-    badge.innerHTML = d.state===STATE.SS ? `<img alt="SS" src="${ssImg(d.label)}">` : (d.state===STATE.ALT? `<img alt="ALT" src="${altImg(d.label)}">` : '<div style="color:white;font-weight:900;display:grid;place-items:center;height:100%">NONE</div>')
+    if(d.state===STATE.SS){
+      badge.appendChild(imgWithFallback(ssImg(d.label), ssBadge(d.label), 'SS'))
+    }else if(d.state===STATE.ALT){
+      badge.appendChild(imgWithFallback(altImg(d.label), altBadge(d.label), 'ALT'))
+    }else{
+      badge.innerHTML='<div style="color:white;font-weight:900;display:grid;place-items:center;height:100%">NONE</div>'
+    }
     badge.onclick = ()=>{ d.state = d.state===STATE.SS?STATE.NONE : d.state===STATE.NONE?STATE.ALT : STATE.SS; render() }
     head.appendChild(badge)
     const title=document.createElement('div'); title.innerHTML=`<h3 class="title">${d.label}</h3>`; head.appendChild(title)
@@ -489,6 +511,8 @@
       $partsGrid.innerHTML=''
       TECH_PARTS.forEach(p=>{
         const wrap=document.createElement('div'); wrap.style.textAlign='center'
+        const badge=document.createElement('div'); badge.className='badge'
+        badge.appendChild(imgWithFallback(techImg(p.name), techBadge(p.name), 'TECH'))
         const badge=document.createElement('div'); badge.className='badge'; badge.innerHTML=`<img alt="TECH" src="${techImg(p.name)}">`
         const cost=document.createElement('div'); cost.className='cost'; cost.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="#57e087" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v12l-8 4-8-4V6l8-4z"/></svg> ${p.cost}`
         wrap.appendChild(badge); wrap.appendChild(cost); $partsGrid.appendChild(wrap)
