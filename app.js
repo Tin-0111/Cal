@@ -53,7 +53,7 @@
   const $optRun=document.getElementById('optRun');
   const $optCancel=document.getElementById('optCancel');
   const $partsGrid=document.getElementById('partsGrid');
-
+  
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
   if($modal){ const $bd=$modal.querySelector('.backdrop'); if($bd){ $bd.onclick=()=> closeModal() } }
