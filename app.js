@@ -6,6 +6,7 @@
   // Image paths for each gear state. Replace with actual files.
   const SS_IMAGES={
     WEAPON:'Image/gear_ss_weapon.png',
+    WEAPON:'Image/gear_ss_weapon.png',
     ARMOR:'Image/ss_armor.png',
     NECKLACE:'Image/ss_necklace.png',
     BELT:'Image/ss_belt.png',
@@ -247,12 +248,14 @@
     }
 
     if(kind==='E'){
-      if(value<=3){ d.E=value }
+      if(value<=2){ d.E=value; d.V=Math.min(5, value+1) }
+      else if(value===3){ d.E=3 }
       else if(value===4){ d.V = Math.max(d.V, 3); d.E=4 }
       else if(value===5){ d.V = Math.max(d.V, 4); d.E=5 }
       enforceEVConstraints(d)
     } else if(kind==='V'){
-      if(value<=3){ d.V=value }
+      if(value<=2){ d.V=value; d.E=Math.min(5, value+1) }
+      else if(value===3){ d.V=3 }
       else if(value===4){ d.E = Math.max(d.E, 3); d.V=4 }
       else if(value===5){ d.E = Math.max(d.E, 4); d.V=5 }
       enforceEVConstraints(d)
