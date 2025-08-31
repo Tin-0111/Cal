@@ -28,6 +28,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,s
 .mode-options label{display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--muted);font-weight:800}
 .mode-box .mode-field{display:flex;align-items:center;gap:8px}
 .mode-box input[type=number]{width:160px;padding:6px 8px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--text)}
+.mode-hint{font-size:12px;color:var(--muted)}
 
 /* 장비 상자 */
 .gear-box{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--border);border-radius:16px;padding:12px 16px;margin-bottom:24px}
