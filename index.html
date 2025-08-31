@@ -10,8 +10,10 @@
   <div class="container layout">
     <nav class="side-nav">
       <button class="nav-item active" data-tab="all">전부보기</button>
+      <button class="nav-item" data-tab="mode">모드</button>
       <button class="nav-item" data-tab="gear">장비</button>
       <button class="nav-item" data-tab="parts">부품</button>
+      <button class="nav-item" data-tab="collection">컬렉션</button>
     </nav>
     <div class="content">
       <!-- 결과 -->
@@ -20,8 +22,20 @@
         <div class="spec-grid" id="specGrid"></div>
       </div>
 
+      <!-- 모드 -->
+      <div class="mode-box" id="modeBox">
+        <div class="mode-options">
+          <label><input type="radio" name="mode" value="normal" checked /> 일반</label>
+          <label><input type="radio" name="mode" value="expedition" /> 달광산원정</label>
+        </div>
+        <div class="field" id="medalField" style="display:none">
+          <label for="medalInput" style="min-width:120px">상대 메달 수</label>
+          <input id="medalInput" type="number" min="0" max="45000" step="1" />
+        </div>
+      </div>
+
       <!-- 장비 -->
-      <div class="gear-box">
+      <div class="gear-box" id="gearBox">
         <div class="gear-head">
           <div class="gear-left">
             <div>CORE : <span id="coreTotal">0개</span></div>
@@ -48,6 +62,42 @@
         <div style="margin-top:6px">
           <span class="pill">Parts</span>
           <div class="tech-grid" id="partsGrid"></div>
+        </div>
+      </div>
+
+      <!-- 컬렉션 -->
+      <div class="collection-box" id="collectionBox">
+        <div class="set-controls">
+          <div class="field">
+            <label for="set1">Set 1</label>
+            <input id="set1" type="range" min="0" max="4" value="0" />
+          </div>
+          <div class="field">
+            <label for="set2">Set 2</label>
+            <input id="set2" type="range" min="0" max="8" value="0" />
+          </div>
+          <div class="field">
+            <label for="set3">Set 3</label>
+            <input id="set3" type="range" min="0" max="8" value="0" />
+          </div>
+        </div>
+        <div class="collection-grid">
+          <div class="collection-item pink">Huma</div>
+          <div class="collection-item pink">Book</div>
+          <div class="collection-item pink">Immo</div>
+          <div class="collection-item pink">Inst</div>
+          <div class="collection-item pink">Ange</div>
+          <div class="collection-item pink">Unic</div>
+          <div class="collection-item pink">Othe</div>
+          <div class="collection-item pink">Star</div>
+          <div class="collection-item yellow">Prim</div>
+          <div class="collection-item yellow">Flau</div>
+          <div class="collection-item yellow">Astr</div>
+          <div class="collection-item yellow">Plas</div>
+          <div class="collection-item yellow">Gold</div>
+          <div class="collection-item yellow">Elem</div>
+          <div class="collection-item yellow">Comm</div>
+          <div class="collection-item yellow">Anti</div>
         </div>
       </div>
     </div>

@@ -55,7 +55,12 @@
   const $partsGrid=document.getElementById('partsGrid');
   const $gearBox=document.querySelector('.gear-box');
   const $techBox=document.getElementById('techBox');
+  const $modeBox=document.getElementById('modeBox');
+  const $collectionBox=document.getElementById('collectionBox');
   const $navItems=document.querySelectorAll('.nav-item');
+  const $modeRadios=document.querySelectorAll('input[name="mode"]');
+  const $medalField=document.getElementById('medalField');
+  const $medalInput=document.getElementById('medalInput');
 
   $navItems.forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -64,14 +69,32 @@
       const tab=btn.dataset.tab;
       const showGear=tab==='all'||tab==='gear';
       const showParts=tab==='all'||tab==='parts';
+      const showMode=tab==='all'||tab==='mode';
+      const showCollection=tab==='all'||tab==='collection';
       if($gearBox) $gearBox.style.display=showGear?'':'none';
       if($logBox) $logBox.style.display=showGear?'':'none';
       if($techBox) $techBox.style.display=showParts?'':'none';
+      if($modeBox) $modeBox.style.display=showMode?'':'none';
+      if($collectionBox) $collectionBox.style.display=showCollection?'':'none';
     });
   });
 
   const $activeNav=document.querySelector('.nav-item.active');
   if($activeNav) $activeNav.click();
+  function updateModeField(){
+    const sel=document.querySelector('input[name="mode"]:checked');
+    if($medalField) $medalField.style.display=(sel&&sel.value==='expedition')?'':'none';
+  }
+  $modeRadios.forEach(r=>{ r.addEventListener('change', updateModeField); });
+  updateModeField();
+  if($medalInput){
+    $medalInput.addEventListener('input',()=>{
+      let v=parseInt($medalInput.value,10);
+      if(!Number.isFinite(v)) v=0;
+      v=Math.max(0,Math.min(45000,v));
+      $medalInput.value=v;
+    });
+  }
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
   if($modal){ const $bd=$modal.querySelector('.backdrop'); if($bd){ $bd.onclick=()=> closeModal() } }
