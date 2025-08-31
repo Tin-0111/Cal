@@ -6,10 +6,9 @@
   // Image paths for each gear state. Replace with actual files.
   const SS_IMAGES={
     WEAPON:'Image/gear_ss_weapon.png',
-    WEAPON:'Image/gear_ss_weapon.png',
-    ARMOR:'Image/ss_armor.png',
-    NECKLACE:'Image/ss_necklace.png',
-    BELT:'Image/ss_belt.png',
+    ARMOR:'Image/gear_ss_cloth.png',
+    NECKLACE:'Image/gear_ss_necklace.png',
+    BELT:'Image/gear_ss_belt.png',
     BRACER:'Image/ss_bracer.png',
     BOOTS:'Image/ss_boots.png'
   }
