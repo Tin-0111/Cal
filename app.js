@@ -61,6 +61,13 @@
   const $modeRadios=document.querySelectorAll('input[name="mode"]');
   const $medalField=document.getElementById('medalField');
   const $medalInput=document.getElementById('medalInput');
+  const $set1=document.getElementById('set1');
+  const $set2=document.getElementById('set2');
+  const $set3=document.getElementById('set3');
+  const $set1Value=document.getElementById('set1Value');
+  const $set2Value=document.getElementById('set2Value');
+  const $set3Value=document.getElementById('set3Value');
+  const $collectionGrid=document.querySelector('.collection-grid');
 
   $navItems.forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -94,6 +101,28 @@
       v=Math.max(0,Math.min(45000,v));
       $medalInput.value=v;
     });
+  }
+
+  [$set1,$set2,$set3].forEach((slider,idx)=>{
+    if(!slider) return;
+    const spans=[$set1Value,$set2Value,$set3Value];
+    const span=spans[idx];
+    const sync=()=>{ if(span) span.textContent=slider.value; };
+    slider.addEventListener('input',sync);
+    sync();
+  });
+
+  if($collectionGrid){
+    const redImages = Array.from({length:28},(_,i)=>`Image/red${i+1}.png`);
+    const yellowImages = Array.from({length:32},(_,i)=>`Image/yellow${i+1}.png`);
+    const makeItem=(cls,src)=>{
+      const div=document.createElement('div');
+      div.className=`collection-item ${cls}`;
+      div.style.backgroundImage=`url(${src})`;
+      $collectionGrid.appendChild(div);
+    };
+    redImages.forEach(src=>makeItem('red',src));
+    yellowImages.forEach(src=>makeItem('yellow',src));
   }
   if($calcBtn){ $calcBtn.onclick=()=>{ openModal() } }
   if($optCancel){ $optCancel.onclick=()=> closeModal() }
