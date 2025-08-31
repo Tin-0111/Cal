@@ -56,6 +56,7 @@
   const $gearBox=document.querySelector('.gear-box');
   const $techBox=document.getElementById('techBox');
   const $modeBox=document.getElementById('modeBox');
+  const $collectionBox=document.getElementById('collectionBox');
   const $navItems=document.querySelectorAll('.nav-item');
   const $modeRadios=document.querySelectorAll('input[name="mode"]');
   const $medalField=document.getElementById('medalField');
@@ -69,10 +70,12 @@
       const showGear=tab==='all'||tab==='gear';
       const showParts=tab==='all'||tab==='parts';
       const showMode=tab==='all'||tab==='mode';
+      const showCollection=tab==='all'||tab==='collection';
       if($gearBox) $gearBox.style.display=showGear?'':'none';
       if($logBox) $logBox.style.display=showGear?'':'none';
       if($techBox) $techBox.style.display=showParts?'':'none';
       if($modeBox) $modeBox.style.display=showMode?'':'none';
+      if($collectionBox) $collectionBox.style.display=showCollection?'':'none';
     });
   });
 

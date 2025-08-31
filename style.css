@@ -87,3 +87,13 @@ svg#lineChart{width:100%;height:160px;display:block}
 .cost{margin-top:6px;color:#57e087;font-weight:800;display:flex;gap:6px;align-items:center;justify-content:center}
 .check{position:absolute;right:-6px;top:-6px;width:26px;height:26px;border-radius:50%;background:#0ea5ff;display:grid;place-items:center;border:3px solid #0b1632}
 .oct.wrap{position:relative}
+
+/* 컬렉션 */
+.collection-box{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--border);border-radius:16px;padding:16px;margin:24px 0}
+.set-controls{display:flex;gap:20px;margin-bottom:16px}
+.set-controls .field{display:flex;flex-direction:column;gap:6px;flex:1}
+.set-controls input[type=range]{width:100%}
+.collection-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:10px}
+.collection-item{width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#1b0931}
+.collection-item.pink{background:#ff83b7}
+.collection-item.yellow{background:#ffe56e}
