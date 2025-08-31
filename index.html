@@ -7,45 +7,48 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <!-- 결과 -->
-    <div class="score-box">
-      <div class="score-title">SCORE : <span id="scoreTotal">1.00×</span></div>
-      <div class="spec-grid" id="specGrid"></div>
-    </div>
+  <div class="container layout">
+    <nav class="side-nav">
+      <button class="nav-item active" data-tab="all">전부보기</button>
+      <button class="nav-item" data-tab="gear">장비</button>
+      <button class="nav-item" data-tab="parts">부품</button>
+    </nav>
+    <div class="content">
+      <!-- 결과 -->
+      <div class="score-box">
+        <div class="score-title">SCORE : <span id="scoreTotal">1.00×</span></div>
+        <div class="spec-grid" id="specGrid"></div>
+      </div>
 
-    <!-- 장비 -->
-    <div class="gear-box">
-      <div class="gear-head">
-        <div class="gear-left">
-          <div>CORE : <span id="coreTotal">0개</span></div>
-          <button id="calcBtn" class="btn btn-primary">calculate</button>
+      <!-- 장비 -->
+      <div class="gear-box">
+        <div class="gear-head">
+          <div class="gear-left">
+            <div>CORE : <span id="coreTotal">0개</span></div>
+            <button id="calcBtn" class="btn btn-primary">calculate</button>
+          </div>
+        </div>
+        <div id="grid" class="grid"></div>
+      </div>
+
+      <!-- 로그: 가능한 조합 & 점수 (기본 접힘) -->
+      <div class="log-box" id="logBox">
+        <div class="log-head">
+          <div class="log-title">LOG : 가능한 조합 & 점수 (클릭하여 펼치기)</div>
+        </div>
+        <div class="log-content">
+          <div id="logTableWrap"></div>
+          <div class="chart-wrap"><svg id="lineChart" viewBox="0 0 800 160" preserveAspectRatio="none"></svg></div>
         </div>
       </div>
-      <div id="grid" class="grid"></div>
-    </div>
 
-    <!-- 로그: 가능한 조합 & 점수 (기본 접힘) -->
-    <div class="log-box" id="logBox">
-      <div class="log-head">
-        <div class="log-title">LOG : 가능한 조합 & 점수 (클릭하여 펼치기)</div>
-      </div>
-      <div class="log-content">
-        <div id="logTableWrap"></div>
-        <div class="chart-wrap"><svg id="lineChart" viewBox="0 0 800 160" preserveAspectRatio="none"></svg></div>
-      </div>
-    </div>
-
-    <!-- Tech parts and Skills (separate) -->
-    <div class="tech-box" id="techBox">
-      <div class="ribbon">Tech parts and Skills</div>
-      <div style="margin-top:6px">
-        <span class="pill">Parts</span>
-        <div class="tech-grid" id="partsGrid"></div>
-      </div>
-      <div style="margin-top:14px">
-        <span class="pill">Skills</span>
-        <div class="tech-grid" id="skillsGrid"></div>
+      <!-- Tech parts and Skills (separate) -->
+      <div class="tech-box" id="techBox">
+        <div class="ribbon">Tech parts</div>
+        <div style="margin-top:6px">
+          <span class="pill">Parts</span>
+          <div class="tech-grid" id="partsGrid"></div>
+        </div>
       </div>
     </div>
   </div>
